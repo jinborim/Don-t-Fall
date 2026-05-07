@@ -5,16 +5,15 @@ using UnityEngine;
 public class PathSpawner : MonoBehaviour
 {
     public GameObject floorPrefab;
-    public GameObject pointPrefab; // ¾ÆÀÌÅÛ ÇÁ¸®ÆÕ
+    public GameObject pointPrefab; 
     private Vector3 lastPos;
 
-    public int itemPoint = 20; // ¾ÆÀÌÅÛÀÌ ³ª¿Ã È®·ü 
+    public int itemPoint = 20; 
 
     void Start()
     {
-        //Ã¹ ¹ßÆÇÀÇ À§Ä¡¸¦ ±â¾ï
         lastPos = floorPrefab.transform.position;
-        //½ÃÀÛ ½Ã ºí·Ï 100°³±ò±â
+        //ì‹œì‘ ì‹œ ë¸”ë¡ 100ê°œê¹”ê¸°
         for (int i = 0; i < 100; i++) {
             SpawnFloor();
         }
@@ -22,18 +21,15 @@ public class PathSpawner : MonoBehaviour
     }
     public void SpawnFloor()
     {
-        // 0ÀÌ¸é ¿À¸¥ÂÊ(+X), 1ÀÌ¸é ¾ÕÂÊ(+Z)
-        // °øÀº ¿À¸¥ÂÊÀ¸·Î ¿òÁ÷ÀÌ´Âµ¥ °ÔÀÓ Ã³À½ ½ÃÀÛ¶§ ¹ßÆÇÀÌ ¿ŞÂÊ¿¡ »ı±â¸é °¥ ¼ö°¡ ¾øÀ½
         int rand = Random.Range(0, 2);
         Vector3 spawnPos = Vector3.zero;
 
-        if (rand == 0) spawnPos = Vector3.right;   // ¿À¸¥ÂÊ
-        else spawnPos = Vector3.forward;           // ¾ÕÂÊ
+        if (rand == 0) spawnPos = Vector3.right;  
+        else spawnPos = Vector3.forward;          
         
-        lastPos += spawnPos; // ¹ßÆÇ Å©±â°¡ 1ÀÎ °æ¿ì
+        lastPos += spawnPos; 
         GameObject newFloor = Instantiate(floorPrefab, lastPos, Quaternion.identity);
 
-        //·£´ı È®·ü·Î ¾ÆÀÌÅÛ »ı¼º
         if(Random.Range(0, 101) <= itemPoint)
         {
             SpawnItem(newFloor);
@@ -46,7 +42,6 @@ public class PathSpawner : MonoBehaviour
 
         GameObject item = Instantiate(pointPrefab, itemPos, Quaternion.identity);
 
-        //¹ßÆÇÀÌ »ç¶óÁú ¶§ °°ÀÌ »ç¶óÁöµµ·Ï ¾ÆÀÌÅÛÀ» ¹ßÆÇÀÇ ÀÚ½ÄÀ¸·Î ¼³Á¤
         item.transform.SetParent(floor.transform);
     }
 }
