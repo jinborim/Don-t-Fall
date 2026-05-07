@@ -6,57 +6,57 @@ using UnityEngine.UI;
 
 public class BallMove : MonoBehaviour
 {
-    public float speed; //Ã³À½ ¼Óµµ
-    public float maxspeed; // ÃÖ´ë ¼Óµµ Á¦ÇÑ
-    public float acceleration; // ÃÊ´ç Áõ°¡ÇÒ ¼Óµµ
-    private bool movingRight = true; // °ø ÀÌµ¿¹æÇâ true: ¿À¸¥ÂÊ false:¾ÕÂÊ
-    private bool isDead = false; // °ÔÀÓ ¿À¹ö »óÅÂ È®ÀÎ
+    public float speed; //ì²˜ìŒ ì†ë„
+    public float maxspeed; // ìµœëŒ€ ì†ë„ ì œí•œ
+    public float acceleration; // ì´ˆë‹¹ ì¦ê°€í•  ì†ë„
+    private bool movingRight = true; // ê³µ ì´ë™ë°©í–¥ true: ì˜¤ë¥¸ìª½ false:ì•ìª½
+    private bool isDead = false; // ê²Œì„ ì˜¤ë²„ ìƒíƒœ í™•ì¸
 
-    public AudioClip backgroundMusic; // ¹è°æÀ½ ÆÄÀÏ
-    public AudioClip itemSource; // ¾ÆÀÌÅÛÀ» ¸Ô¾úÀ»¶§ Àç»ıÇÒ ¼Ò¸®
-    public AudioClip gameOverSorce; // °ÔÀÓ ¿À¹ö ½Ã Àç»ıÇÒ ¼Ò¸®
+    public AudioClip backgroundMusic; // ë°°ê²½ìŒ íŒŒì¼
+    public AudioClip itemSource; // ì•„ì´í…œì„ ë¨¹ì—ˆì„ë•Œ ì¬ìƒí•  ì†Œë¦¬
+    public AudioClip gameOverSorce; // ê²Œì„ ì˜¤ë²„ ì‹œ ì¬ìƒí•  ì†Œë¦¬
 
-    public GameObject gameOverPanel; // °ÔÀÓ ¿À¹ö UI
-    private bool isGameStart = false; // °ÔÀÓ ½ÃÀÛ ¿©ºÎ
+    public GameObject gameOverPanel; // ê²Œì„ ì˜¤ë²„ UI
+    private bool isGameStart = false; // ê²Œì„ ì‹œì‘ ì—¬ë¶€
     
     private Rigidbody rb; 
-    public float rotationBall = 500f; //°øÀÇ È¸Àü ¼Óµµ
+    public float rotationBall = 500f; //ê³µì˜ íšŒì „ ì†ë„
 
-    public Text scoreText; // ¿¬°áÇÒ Á¡¼ö Text
-    public int score; //Á¡¼ö
+    public Text scoreText; // ì—°ê²°í•  ì ìˆ˜ Text
+    public int score; //ì ìˆ˜
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        UpdateScoreUI(); // ½ÃÀÛÇÒ ¶§ Á¡¼ö ÃÊ±âÈ­
+        UpdateScoreUI(); // ì‹œì‘í•  ë•Œ ì ìˆ˜ ì´ˆê¸°í™”
     }
     void Update()
     {
-        // °ÔÀÓ ½ÃÀÛ ´ë±â
+        // ê²Œì„ ì‹œì‘ ëŒ€ê¸°
         if (!isGameStart)
         {
-            //Å¬¸¯ÇÏ¸é °øÀÌ ¿òÁ÷ÀÌµµ·Ï ÇÔ
+            //í´ë¦­í•˜ë©´ ê³µì´ ì›€ì§ì´ë„ë¡ í•¨
             if (Input.GetMouseButtonDown(0))
             {
                 isGameStart = true;
 
-                // SoundManager¸¦ ÅëÇØ ¹è°æÀ½¾Ç Àç»ı
+                // SoundManagerë¥¼ í†µí•´ ë°°ê²½ìŒì•… ì¬ìƒ
                 if (SoundManager.instance != null && backgroundMusic != null)
                 {
                     SoundManager.instance.BgmBackground(backgroundMusic);
                 }
                 return;
             }
-            return; // ½ÃÀÛ Àü¿¡´Â ¾Æ·¡ ·ÎÁ÷µéÀ» ½ÇÇàÇÏÁö ¾ÊÀ½
+            return; // ì‹œì‘ ì „ì—ëŠ” ì•„ë˜ ë¡œì§ë“¤ì„ ì‹¤í–‰í•˜ì§€ ì•ŠìŒ
         }
         
-        // ¸Å ÇÁ·¹ÀÓ ¸¶´Ù Á¶±İ¾¿ ¼Óµµ Áõ°¡
+        // ë§¤ í”„ë ˆì„ ë§ˆë‹¤ ì¡°ê¸ˆì”© ì†ë„ ì¦ê°€
         if(speed < maxspeed)
         {
             speed += acceleration * Time.deltaTime;
         }
         
-        // Á×¾úÀ¸¸é ½ÇÇà ÁßÁö
+        // ì£½ì—ˆìœ¼ë©´ ì‹¤í–‰ ì¤‘ì§€
         if (isDead) return;
 
 
@@ -65,20 +65,20 @@ public class BallMove : MonoBehaviour
             movingRight = !movingRight;
         }
 
-        // ÀÌµ¿ ¹× °ø Ãß¶ô Ã¼Å©
+        // ì´ë™ ë° ê³µ ì¶”ë½ ì²´í¬
         Move(); 
         CheckFall();   
     }
 
     void Move()
     {
-        // ¹æÇâ ¼³Á¤ (¿À¸¥ÂÊ or ¾Õ)
+        // ë°©í–¥ ì„¤ì • (ì˜¤ë¥¸ìª½ or ì•)
         Vector3 direction = movingRight ? Vector3.right : Vector3.forward;
         
-        //½ÇÁ¦ À§Ä¡ ÀÌµ¿
+        //ì‹¤ì œ ìœ„ì¹˜ ì´ë™
         transform.position += direction * speed * Time.deltaTime;
 
-        // °øÀÌ ÀÌµ¿ ¹æÇâ¿¡ ¸ÂÃç ±¸¸£µµ·Ï ±¸Çö
+        // ê³µì´ ì´ë™ ë°©í–¥ì— ë§ì¶° êµ¬ë¥´ë„ë¡ êµ¬í˜„
         Vector3 rotationAxis = new Vector3(direction.z, 0, -direction.x);
         transform.Rotate(rotationAxis, rotationBall * Time.deltaTime, Space.World);
 
@@ -86,7 +86,7 @@ public class BallMove : MonoBehaviour
 
     void CheckFall()
     {
-        // °øÀÇ ³ôÀÌ -2 º¸´Ù ³·¾ÆÁö¸é Ãß¶ôÀ¸·Î ÀÎ½ÄÇÏ¸ç °ÔÀÓ ¿À¹ö°¡ µÊ
+        // ê³µì˜ ë†’ì´ -2 ë³´ë‹¤ ë‚®ì•„ì§€ë©´ ì¶”ë½ìœ¼ë¡œ ì¸ì‹í•˜ë©° ê²Œì„ ì˜¤ë²„ê°€ ë¨
         if (transform.position.y < -2f && !isDead)
         {
             GameOver();
@@ -96,33 +96,33 @@ public class BallMove : MonoBehaviour
     void GameOver()
     {
         isDead = true;
-        // °ÔÀÓ ¿À¹ö È¿°úÀ½
+        // ê²Œì„ ì˜¤ë²„ íš¨ê³¼ìŒ
         if(SoundManager.instance != null && gameOverSorce != null)
         {
             SoundManager.instance.PlayGameOverSound(gameOverSorce);
         }
   
-        // °ÔÀÓ ¿À¹ö UI
+        // ê²Œì„ ì˜¤ë²„ UI
         if (gameOverPanel != null)
         {
             gameOverPanel.SetActive(true);
         }
     }
 
-    // ¹öÆ°À» ´­·¶À» ¶§ ½ÇÇàµÉ ÇÔ¼ö
+    // ë²„íŠ¼ì„ ëˆŒë €ì„ ë•Œ ì‹¤í–‰ë  í•¨ìˆ˜
     public void RestartGame()
     {
         if(SoundManager.instance != null)
         {
             SoundManager.instance.StopGameOverSound();
         }
-        // ÇöÀç ¿­·Á ÀÖ´Â ¾ÀÀ» ´Ù½Ã ·Îµå
+        // í˜„ì¬ ì—´ë ¤ ìˆëŠ” ì”¬ì„ ë‹¤ì‹œ ë¡œë“œ
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        // "Floor" ÅÂ±×¸¦ °¡Áø ¹ßÆÇÀ» ¹Ì¸® »ı¼º (¹«ÇÑ »ı¼º ·ÎÁ÷)
+        // "Floor" íƒœê·¸ë¥¼ ê°€ì§„ ë°œíŒì„ ë¯¸ë¦¬ ìƒì„± (ë¬´í•œ ìƒì„± ë¡œì§)
         if (collision.gameObject.CompareTag("Floor"))
         {
             FindObjectOfType<PathSpawner>().SpawnFloor();
@@ -131,18 +131,18 @@ public class BallMove : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //Ãæµ¹ÇÑ ¿ÀºêÁ§Æ®ÀÇ ÅÂ±×°¡ "Item"ÀÎÁö È®ÀÎ
+        //ì¶©ëŒí•œ ì˜¤ë¸Œì íŠ¸ì˜ íƒœê·¸ê°€ "Item"ì¸ì§€ í™•ì¸
         if (other.gameObject.CompareTag("Item"))
         {
-            SoundManager.instance.PlaySource(itemSource);   // ¾ÆÀÌÅÛ È¹µæ È¿°úÀ½
-            Destroy(other.gameObject);  // ¾ÆÀÌÅÛÀ» ¸ÔÀ¸¸é »èÁ¦
-            score += 5; // Ãæµ¹ÇÒ¶§¸¶´Ù 5Á¡ Ãß°¡
-            UpdateScoreUI(); // È­¸é Á¡¼ö
+            SoundManager.instance.PlaySource(itemSource);   // ì•„ì´í…œ íšë“ íš¨ê³¼ìŒ
+            Destroy(other.gameObject);  // ì•„ì´í…œì„ ë¨¹ìœ¼ë©´ ì‚­ì œ
+            score += 5; // ì¶©ëŒí• ë•Œë§ˆë‹¤ 5ì  ì¶”ê°€
+            UpdateScoreUI(); // í™”ë©´ ì ìˆ˜
 
         }
     }
 
-    // ÇöÀç Á¡¼ö »óÅÂ¸¦ È­¸é¿¡¼­ °»½Å
+    // í˜„ì¬ ì ìˆ˜ ìƒíƒœë¥¼ í™”ë©´ì—ì„œ ê°±ì‹ 
     void UpdateScoreUI()
     {
         if (scoreText != null)
