@@ -8,13 +8,13 @@ public class Exit : MonoBehaviour
     public void ExitApp()
     {
         #if UNITY_EDITOR
-        // À¯´ÏÆ¼ ¿¡µğÅÍ¿¡¼­ ±Û ¶§ ½ÇÇà
+        // ìœ ë‹ˆí‹° ì—ë””í„°ì—ì„œ ê¸€ ë•Œ ì‹¤í–‰
         UnityEditor.EditorApplication.isPlaying = false;
         #else
-        //½ÇÁ¦ ¾Èµå·ÎÀÌµå, pc ¾ÛÀ» Á¾·áÇÒ ¶§ ½ÇÇà
+        //ì‹¤ì œ ì•ˆë“œë¡œì´ë“œ, pc ì•±ì„ ì¢…ë£Œí•  ë•Œ ì‹¤í–‰
         Application.Quit();
         #endif
-        Debug.Log("°ÔÀÓÀÌ Á¾·áµÇ¾ú½À´Ï´Ù.");
+        Debug.Log("ê²Œì„ì´ ì¢…ë£Œë˜ì—ˆìŠµë‹ˆë‹¤.");
     }
 
     // Update is called once per frame
