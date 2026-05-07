@@ -1,13 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement; //¾À ³Ñ¾î°¥·Á¸é ¹İµå½Ã ÇÊ¿äÇÔ
+using UnityEngine.SceneManagement; //ì”¬ ë„˜ì–´ê°ˆë ¤ë©´ ë°˜ë“œì‹œ í•„ìš”í•¨
 
 public class Scene : MonoBehaviour
 {
     public void StartScene()
     {
-        SceneManager.LoadScene("Main"); //´ÙÀ½À¸·Î ³Ñ¾î°¥ ¾À ÀÌ¸§
+        SceneManager.LoadScene("Main"); //ë‹¤ìŒìœ¼ë¡œ ë„˜ì–´ê°ˆ ì”¬ ì´ë¦„
     }
     
 }
