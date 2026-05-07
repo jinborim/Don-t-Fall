@@ -4,48 +4,42 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    /**
-     *  °ÔÀÓÀÇ ¹è°æÀ½¾Ç°ú È¿°úÀ½À» °ü¸®
-     */
 
-    //¾îµğ¼­µç Á¢±Ù °¡´ÉÇÔ
     public static SoundManager instance;
 
-    private AudioSource bgmSource; // ¹è°æ »ç¿îµå
-    private AudioSource audioSource; // item È¿°úÀ½
-    private AudioSource gameOverSource; // gameover È¿°úÀ½
+    private AudioSource bgmSource; // ë°°ê²½ íš¨ê³¼ìŒ
+    private AudioSource audioSource; // item íš¨ê³¼ìŒ
+    private AudioSource gameOverSource; // gameover íš¨ê³¼ìŒ
 
     void Awake()
     {
-        //¾ÀÀÌ SoundManager°¡ ÇÏ³ª¸¸ Á¸ÀçÇÏµµ·Ï ÇÔ
         if(instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject); //¾ÀÀÌ ¹Ù²î¾îµµ ÆÄ±«µÇÁö ¾ÊÀ½
+            DontDestroyOnLoad(gameObject); //ì”¬ì´ ë°”ë€Œì–´ë„ íŒŒê´´ë˜ì§€ ì•ŠìŒ
             
         }
         else
         {
             instance.StopGameOverSound();
             Destroy(gameObject);
-            return; // ¾Æ·¡ ÃÊ±âÈ­ ·ÎÁ÷À» ½ÇÇàÇÏÁö ¾Êµµ·Ï Á¾·á
+            return; 
         }
         bgmSource = GetComponent<AudioSource>();
         audioSource = GetComponent<AudioSource>();
         gameOverSource = gameObject.AddComponent<AudioSource>();
     }
 
-    //¹è°æ À½¾ÇÀ» Àç»ıÇÏ´Â ÇÔ¼ö
+
     public void BgmBackground(AudioClip bgmClip, float volume = 0.5f)
     {
-        if (bgmSource.clip == bgmClip) return; // ÀÌ¹Ì Àç»ı ÁßÀÌ¸é ¹«½Ã
+        if (bgmSource.clip == bgmClip) return; // ì´ë¯¸ ì¬ìƒ ì¤‘ì´ë©´ ë¬´ì‹œ
 
         bgmSource.clip = bgmClip;
         bgmSource.volume = volume;
         bgmSource.Play();
     }
 
-    // °ÔÀÓ ¿À¹ö È¿°úÀ½À» Àç»ıÇÏ´Â ÇÔ¼ö
     public void PlayGameOverSound(AudioClip clip)
     {
         if (clip == null) return;
@@ -53,17 +47,14 @@ public class SoundManager : MonoBehaviour
         gameOverSource.Play();
     }
 
-    //¿ÜºÎ¿¡¼­ ¼Ò¸®¸¦ Àç»ıÇÒ ¶§ È£Ãâ
     public void PlaySource(AudioClip clip)
     {
         if(clip != null)
         {
-            //  ±âÁ¸¿¡ ³ª¿À´ø ¼Ò¸®¸¦ ²÷Áö ¾Ê°í Àç»ı
             audioSource.PlayOneShot(clip);
         }
     }
 
-    // °ÔÀÓ ¿À¹ö ¼Ò¸®¸¦ ²û
     public void StopGameOverSound()
     {
         if (gameOverSource != null && gameOverSource.isPlaying)
