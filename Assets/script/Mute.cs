@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class Mute : MonoBehaviour
 {
-    public Image buttonImage; // º¯°æÇÒ ¹öÆ°ÀÇ ÀÌ¹ÌÁö
-    public Sprite soundOn; //¼Ò¸® Å² ¾ÆÀÌÄÜ
-    public Sprite soundOff; // ¼Ò¸® ²ö ¾ÆÀÌÄÜ
+    public Image buttonImage; // ë³€ê²½í•  ë²„íŠ¼ì˜ ì´ë¯¸ì§€
+    public Sprite soundOn; //ì†Œë¦¬ í‚¨ ì•„ì´ì½˜
+    public Sprite soundOff; // ì†Œë¦¬ ëˆ ì•„ì´ì½˜
 
     private bool isMuted = false;
 
@@ -17,19 +17,19 @@ public class Mute : MonoBehaviour
 
         if (isMuted)
         {
-            // Å¬¸¯½Ã ¼Ò¸® ²ô±â
+            // í´ë¦­ì‹œ ì†Œë¦¬ ë„ê¸°
             AudioListener.pause = true;
-            // À½¼Ò°Å ¾ÆÀÌÄÜÀ¸·Î º¯°æ
+            // ìŒì†Œê±° ì•„ì´ì½˜ìœ¼ë¡œ ë³€ê²½
             buttonImage.sprite = soundOff;
-            Debug.Log("À½¼Ò°Å");
+            Debug.Log("ìŒì†Œê±°");
         }
         else
         {
-            // Å¬¸¯½Ã ¼Ò¸® Å°±â
+            // í´ë¦­ì‹œ ì†Œë¦¬ í‚¤ê¸°
             AudioListener.pause = false;
-            // ¼Ò¸® ¾ÆÀÌÄÜÀ¸·Î º¯°æ
+            // ì†Œë¦¬ ì•„ì´ì½˜ìœ¼ë¡œ ë³€ê²½
             buttonImage.sprite = soundOn;
-            Debug.Log("¼Ò¸® Àç»ı");
+            Debug.Log("ì†Œë¦¬ ì¬ìƒ");
         }
     }
 }
