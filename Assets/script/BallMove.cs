@@ -40,7 +40,6 @@ public class BallMove : MonoBehaviour
             {
                 isGameStart = true;
 
-                // SoundManager를 통해 배경음악 재생
                 if (SoundManager.instance != null && backgroundMusic != null)
                 {
                     SoundManager.instance.BgmBackground(backgroundMusic);
@@ -122,7 +121,7 @@ public class BallMove : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        // "Floor" 태그를 가진 발판을 미리 생성 (무한 생성 로직)
+        // 발판을 미리 생성 (무한 생성 로직)
         if (collision.gameObject.CompareTag("Floor"))
         {
             FindObjectOfType<PathSpawner>().SpawnFloor();
@@ -131,7 +130,6 @@ public class BallMove : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //충돌한 오브젝트의 태그가 "Item"인지 확인
         if (other.gameObject.CompareTag("Item"))
         {
             SoundManager.instance.PlaySource(itemSource);   // 아이템 획득 효과음
